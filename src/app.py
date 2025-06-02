@@ -1,5 +1,3 @@
-# app.py
-
 import os
 import requests
 import pandas as pd
@@ -16,19 +14,31 @@ av_token = os.getenv("AV_API_KEY")
 # ──────────────────────────────────────────────────────────────────────────────
 # Streamlit page config
 st.set_page_config(
-    page_title="Apple Financial Dashboard (Interactive)",
+    page_title="Financial Dashboard (Interactive)",
     layout="wide",
 )
-st.title("📊 Apple Inc. Financial Dashboard (Interactive)")
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Sidebar: Stock‐symbol selector
+st.sidebar.header("🔍 Select Stock Symbol")
+symbol = st.sidebar.selectbox(
+    "Choose a ticker:", 
+    ["AAPL", "META", "GOOG"], 
+    index=0
+)
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Main title & subtitle
+st.title(f"📊 {symbol} Financial Dashboard (Interactive)")
 st.markdown(
     """
-    Explore **8 interactive visualizations** of Apple’s income statement data 
-    (2005–present) using the Alpha Vantage API and Plotly for state-of-the-art charts.
+    Explore **8 interactive visualizations** of the chosen company’s income statement data 
+    (2005–present) using the Alpha Vantage API and Plotly for charts.
     """
 )
+
 # ──────────────────────────────────────────────────────────────────────────────
-# Fixed stock symbol
-symbol = "AAPL"
+# Display chosen symbol
 st.write(f"### Stock Symbol: {symbol}")
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -136,11 +146,9 @@ st.dataframe(
 def bill_formatter(x):
     return f"${x/1e9:.0f}B"
 
-
 # Helper: For numeric axes that should not be in billions
 def plain_formatter(x):
     return f"{x:.1f}"
-
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Row 1: Charts 1 & 2
@@ -233,7 +241,6 @@ with row2_col1:
 # 4. EBITDA vs Net Income (Grouped Bar)
 with row2_col2:
     st.subheader("4. 📊 EBITDA vs Net Income")
-    # Shift bar positions slightly to the left/right for grouping
     fig4 = go.Figure()
     fig4.add_trace(
         go.Bar(
