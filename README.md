@@ -1,6 +1,6 @@
 # Apple Financial Statement Viewer
 
-> A Streamlit-based web application that retrieves and visualizes Apple Inc.'s annual income statement data (Total Revenue) using the Alpha Vantage API. Deployed seamlessly on CapRover for easy access and scalability.
+> A Streamlit-based web application that retrieves and visualizes Apple,Meta and Google's annual income statement data (Total Revenue) using the Alpha Vantage API. Deployed seamlessly on CapRover for easy access and scalability.
 
 ---
 
@@ -23,7 +23,7 @@
 
 ## Project Overview
 
-The **Apple Financial Statement Viewer** is a simple yet powerful web application built with **Streamlit**. It fetches Apple Inc.'s annual income statement data via the **Alpha Vantage API**, processes that data into a pandas DataFrame, and renders a bar chart of Apple's total revenue over the years.
+The **Financial Statement Viewer** is a simple yet powerful web application built with **Streamlit**. It fetches Apple/Meta/Google's annual income statement data via the **Alpha Vantage API**, processes that data into a pandas DataFrame, and renders a bar chart of Apple/Meta/Google's total revenue over the years.
 
 Key objectives:
 
@@ -38,7 +38,7 @@ This repository contains all source code, configuration files, and documentation
 
 ## Features
 
-* **Income Statement Retrieval**: Automatically pulls annual income statements for Apple (AAPL) from Alpha Vantage.
+* **Income Statement Retrieval**: Automatically pulls annual income statements for Apple (AAPL), Meta (META) and Google (GOOG)from Alpha Vantage.
 * **Data Processing**: Converts string values to numeric types, extracts fiscal years, and sorts data chronologically.
 * **Interactive Visualization**: Displays a bar chart of total revenue (in billions USD) for each fiscal year.
 * **Environment Configuration**: Reads API keys from a `.env` file for security.
@@ -115,7 +115,7 @@ streamlit run app.py
 ```
 
 * Open your browser and navigate to `http://localhost:8501`.
-* The app will display Apple’s annual total revenue in a bar chart.
+* The app will display Apple/Meta/Google's annual total revenue in a bar chart.
 
 ---
 
@@ -156,7 +156,7 @@ You can include a `caprover.json` in your project root to simplify CLI deploymen
 ```json
 {
   "caproverMinimumRequiredVersion": "2.0.0",
-  "appName": "Apple-Financial-Statement",
+  "appName": "Financial-Statement",
   "dockerfilePath": "./Dockerfile",
   "stopPreviousContainer": true
 }
@@ -171,10 +171,10 @@ You can verify your Docker container locally before pushing to CapRover:
 
 ```bash
 # 1. Build the image
-docker build -t apple-fin-stmt .
+docker build -t fin .
 
 # 2. Run the container, supplying the environment variable
-docker run -p 8501:8501 -e AV_TOKEN=YOUR_API_KEY apple-fin-stmt
+docker run -p 8501:8501 -e AV_TOKEN=YOUR_API_KEY fin
 
 # 3. In your browser, navigate to http://localhost:8501
 ```
@@ -182,7 +182,7 @@ docker run -p 8501:8501 -e AV_TOKEN=YOUR_API_KEY apple-fin-stmt
 ### 3. Set Environment Variables on CapRover
 
 1. Log in to your CapRover dashboard.
-2. Navigate to your app (**Apple-Financial-Statement**) → **App Configs** → **Environment Variables**.
+2. Navigate to your app (**Financial-Statement**) → **App Configs** → **Environment Variables**.
 3. Add:
 
    * **Key**: `AV_TOKEN`
@@ -205,7 +205,7 @@ docker run -p 8501:8501 -e AV_TOKEN=YOUR_API_KEY apple-fin-stmt
    # Enter your root password
    ```
 
-3. From your project root (`Apple-Financial-Statement/`), run:
+3. From your project root (`Financial-Statement/`), run:
 
    ```bash
    caprover deploy
@@ -214,7 +214,7 @@ docker run -p 8501:8501 -e AV_TOKEN=YOUR_API_KEY apple-fin-stmt
    * If you didn’t create `caprover.json`, use:
 
      ```bash
-     caprover deploy --appName Apple-Financial-Statement --dockerfilePath ./Dockerfile
+     caprover deploy --appName Financial-Statement --dockerfilePath ./Dockerfile
      ```
 
 4. Wait for the build and deployment to complete. You’ll see “Deployment successful.”
@@ -232,7 +232,7 @@ That’s it! Your Streamlit app should now be live and accessible.
 ## Project Structure
 
 ```
-Apple-Financial-Statement/
+Financial-Statement/
 ├── .env                  # Environment variables (ignored by Git)
 ├── .gitignore            # Git ignore list
 ├── caprover.json         # CapRover deployment configuration
